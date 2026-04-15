@@ -6,7 +6,14 @@
     "mainElement": "EntryAbility",
     "deviceTypes": [
       "phone",
-      "wearable"
+      "tablet",
+      "2in1",
+      "wearable",
+      "default",
+      "smartVision",
+      "smartWatch",
+      "tv",
+      "car"
     ],
     "deliveryWithInstall": true,
     "installationFree": false,
