@@ -1,16 +1,31 @@
-import { useState } from "react";
-import { QrCode, ScanLine, User, ArrowLeft, Camera, Share2 } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { QrCode, User, ArrowLeft, Camera, Share2, Sparkles } from "lucide-react";
+import { Scanner } from '@yudiel/react-qr-scanner';
 
-export default function HomeProfile() {
+interface HomeProfileProps {
+  onScanSuccess?: () => void;
+}
+
+export default function HomeProfile({ onScanSuccess }: HomeProfileProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [scanMode, setScanMode] = useState(false);
+  const scannedRef = useRef(false);
+
+  // Reset scan flag when entering scan mode
+  useEffect(() => {
+    if (scanMode) {
+      scannedRef.current = false;
+    }
+  }, [scanMode]);
 
   const userAvatar = "https://randomuser.me/api/portraits/men/32.jpg";
   const qrCodeImage = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=Contact_Profile_Cufflink&color=ffffff&bgcolor=1b1b1b";
 
+  // (Simulated interval removed in favor of real camera)
+
   if (scanMode) {
     return (
-      <div className="bg-[#131313] flex flex-col items-center relative w-full min-h-screen text-[#e5e2e1]">
+      <div className="bg-[#131313] flex flex-col items-center relative w-full h-full text-[#e5e2e1]">
         {/* Header */}
         <div className="flex items-center w-full p-6 pt-12">
           <button onClick={() => setScanMode(false)} className="bg-[#20201f] p-3 rounded-full shadow-[0px_8px_24px_rgba(0,0,0,0.12)] active:scale-95 transition-transform">
@@ -27,23 +42,48 @@ export default function HomeProfile() {
             Align the QR code within the frame to instantly connect
           </p>
           
-          <div className="relative w-full aspect-square max-w-[300px] border-2 border-[rgba(233,193,118,0.2)] rounded-3xl overflow-hidden shadow-[0px_0px_50px_rgba(233,193,118,0.05)]">
-            {/* The fake camera background */}
-            <div className="absolute inset-0 bg-black opacity-60"></div>
+          <div className="relative w-full aspect-square max-w-[300px] border-2 border-[rgba(233,193,118,0.2)] rounded-3xl overflow-hidden shadow-[0px_0px_50px_rgba(233,193,118,0.05)] bg-[#111]">
+            <Scanner
+              onScan={(detected) => {
+                if (detected && detected.length > 0 && !scannedRef.current) {
+                  scannedRef.current = true;
+                  setTimeout(() => {
+                    setScanMode(false);
+                    onScanSuccess?.();
+                  }, 100);
+                }
+              }}
+              components={{
+                finder: false,
+              }}
+              styles={{
+                container: { borderRadius: '1.5rem', overflow: 'hidden' },
+              }}
+            />
             
-            {/* Scanning line animation */}
-            <div className="absolute inset-x-0 h-1 bg-[#e9c176] shadow-[0_0_15px_#e9c176] animate-scan-line"></div>
+            {/* Custom Overlay */}
+            <div className="absolute inset-0 pointer-events-none z-10">
+              {/* Scanning line animation */}
+              <div className="absolute inset-x-0 h-1 bg-[#e9c176] shadow-[0_0_15px_#e9c176] animate-scan-line opacity-80"></div>
 
-            {/* Viewfinder corners */}
-            <div className="absolute top-0 left-0 w-12 h-12 border-t-4 border-l-4 border-[#e9c176] rounded-tl-2xl"></div>
-            <div className="absolute top-0 right-0 w-12 h-12 border-t-4 border-r-4 border-[#e9c176] rounded-tr-2xl"></div>
-            <div className="absolute bottom-0 left-0 w-12 h-12 border-b-4 border-l-4 border-[#e9c176] rounded-bl-2xl"></div>
-            <div className="absolute bottom-0 right-0 w-12 h-12 border-b-4 border-r-4 border-[#e9c176] rounded-br-2xl"></div>
-            
-            <div className="absolute inset-0 flex items-center justify-center">
-              <ScanLine size={48} className="text-[rgba(255,255,255,0.1)]" />
+              {/* Viewfinder corners */}
+              <div className="absolute top-0 left-0 w-12 h-12 border-t-4 border-l-4 border-[#e9c176] rounded-tl-[1.3rem]"></div>
+              <div className="absolute top-0 right-0 w-12 h-12 border-t-4 border-r-4 border-[#e9c176] rounded-tr-[1.3rem]"></div>
+              <div className="absolute bottom-0 left-0 w-12 h-12 border-b-4 border-l-4 border-[#e9c176] rounded-bl-[1.3rem]"></div>
+              <div className="absolute bottom-0 right-0 w-12 h-12 border-b-4 border-r-4 border-[#e9c176] rounded-br-[1.3rem]"></div>
             </div>
           </div>
+
+          <button 
+            onClick={() => {
+              setScanMode(false);
+              onScanSuccess?.();
+            }}
+            className="mt-12 flex items-center gap-2 bg-[#e9c176] text-[#412d00] px-6 py-3 rounded-full font-['Manrope:Bold',sans-serif] font-bold text-[14px] shadow-lg active:scale-95 transition-all"
+          >
+            <Sparkles size={16} />
+            Instant Capture
+          </button>
         </div>
       </div>
     );

@@ -34,7 +34,7 @@ function App() {
           {activeTab === 'capture'  && <ContactCapture />}
           {activeTab === 'timeline' && <NetworkingTimeline />}
           {activeTab === 'crm'      && <RelationshipCrm />}
-          {activeTab === 'home'     && <HomeProfile />}
+          {activeTab === 'home'     && <HomeProfile onScanSuccess={() => setActiveTab('capture')} />}
         </AppShell>
       </div>
     </div>
