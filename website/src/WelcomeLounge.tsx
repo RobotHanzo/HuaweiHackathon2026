@@ -1,6 +1,6 @@
 import { ChevronRight, Globe } from "lucide-react";
 
-const imgLogo = "/logo.png";
+const imgLogo = import.meta.env.BASE_URL + "logo.png";
 
 interface WelcomeLoungeProps {
   onEnter: () => void;

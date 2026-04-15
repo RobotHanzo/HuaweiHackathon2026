@@ -19,7 +19,7 @@ export function AppHeader() {
       {/* Logo group */}
       <div className="flex gap-3 items-center">
         <div className="bg-[#353535] overflow-hidden rounded-full shrink-0 size-8">
-          <img alt="Profile" className="size-full object-cover" src="/logo.png" />
+          <img alt="Profile" className="size-full object-cover" src={`${import.meta.env.BASE_URL}logo.png`} />
         </div>
         <p className="font-['Manrope:Bold',sans-serif] font-bold text-[#bac8dc] text-[20px] leading-7 tracking-[-1px] whitespace-nowrap">
           Cufflink
