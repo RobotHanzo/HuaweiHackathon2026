@@ -6,6 +6,7 @@ import ContactCapture from './ContactCapture';
 import RelationshipCrm from './RelationshipCrm';
 import NetworkingTimeline from './NetworkingTimeline';
 import WelcomeLounge from './WelcomeLounge';
+import HomeProfile from './HomeProfile';
 
 function App() {
   const [showLounge, setShowLounge] = useState(true);
@@ -33,7 +34,7 @@ function App() {
           {activeTab === 'capture'  && <ContactCapture />}
           {activeTab === 'timeline' && <NetworkingTimeline />}
           {activeTab === 'crm'      && <RelationshipCrm />}
-          {activeTab === 'home'     && <NearbyAlert />}
+          {activeTab === 'home'     && <HomeProfile />}
         </AppShell>
       </div>
     </div>

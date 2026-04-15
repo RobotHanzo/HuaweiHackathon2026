@@ -93,3 +93,12 @@ div[data-name^="Floating Action Button"] {
 .sent-pop {
   animation: sent-pop 0.38s cubic-bezier(0.34, 1.4, 0.64, 1) both;
 }
+
+@keyframes scan-line {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(290px); }
+  100% { transform: translateY(0); }
+}
+.animate-scan-line {
+  animation: scan-line 2.5s ease-in-out infinite;
+}
