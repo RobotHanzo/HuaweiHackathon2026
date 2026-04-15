@@ -1,5 +1,6 @@
-﻿import { MapPin, Users, Star, Map } from "lucide-react";
+import { MapPin, Users, Star, Map } from "lucide-react";
 import React from "react";
+import { AiDraftGenerator } from "./components/AiDraftGenerator";
 
 const imgMapBg = "https://picsum.photos/seed/map42/700/400";
 
@@ -51,6 +52,15 @@ function TimelineEntry({ name, role, roleColor, time, quote, borderColor, icon, 
           ))}
         </div>
       )}
+
+      {/* Follow Up */}
+      <div className="w-full mt-2">
+        <AiDraftGenerator 
+          recipientName={name.split(" ")[0]}
+          buttonLabel="Follow Up"
+          message={`Hi ${name.split(" ")[0]},\n\nFollowing up on our chat. ${quote.split('.')[0]}.\n\nLet's connect soon!`}
+        />
+      </div>
     </div>
   );
 }

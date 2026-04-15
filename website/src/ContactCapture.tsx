@@ -1,7 +1,43 @@
-﻿import { Check, Send, Star, Info, Mic, MapPin, Users } from "lucide-react";
+import { Check, Star, Info, Mic, MapPin, Users } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { AiDraftGenerator } from "./components/AiDraftGenerator";
 const imgNewContact = "https://randomuser.me/api/portraits/women/68.jpg";
 
 export default function ContactCapture() {
+  const [recordState, setRecordState] = useState<'idle' | 'recording' | 'done'>('idle');
+  const [transcribedText, setTranscribedText] = useState("");
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const FAKE_TRANSCRIPT = `"Met at the Neo-Con summit. Interested in the Q3 design roadmap and mentioned a potential collab with their London office. Follow up on Monday..."`;
+
+  const startRecording = () => {
+    setRecordState('recording');
+    setTranscribedText("");
+    let i = 0;
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      i++;
+      setTranscribedText(FAKE_TRANSCRIPT.slice(0, i));
+      if (i >= FAKE_TRANSCRIPT.length) {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+        setRecordState('done');
+      }
+    }, 40);
+  };
+
+  const stopRecording = () => {
+    if (recordState === 'recording') {
+       if (intervalRef.current) clearInterval(intervalRef.current);
+       setRecordState('done');
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, []);
+
   return (
     <div className="bg-[#131313] flex flex-col items-start relative w-full" data-name="Contact Capture" data-node-id="7:100">
       <div className="content-stretch flex flex-col gap-[32px] items-start max-w-[512px] min-h-[1307px] py-[24px] px-[24px] relative shrink-0 w-full" data-name="Main" data-node-id="7:101">
@@ -63,16 +99,14 @@ export default function ContactCapture() {
             <div className="h-px bg-white/[0.06] mx-0" />
 
             {/* Action buttons */}
-            <div className="flex gap-3 px-5 py-4">
-              <button
-                className="flex flex-1 items-center justify-center gap-2 py-3 rounded-xl font-['Manrope:Bold',sans-serif] font-bold text-[#1e3048] text-sm"
-                style={{ background: "linear-gradient(160.829deg, rgb(186,200,220) 0%, rgb(35,49,65) 100%)" }}
-              >
-                <Send size={14} strokeWidth={2.5} />
-                Follow Up
-              </button>
-              <button className="flex flex-1 items-center justify-center gap-2 py-3 rounded-xl bg-[#353535] font-['Manrope:Bold',sans-serif] font-bold text-[#e5e2e1] text-sm">
-                <Star size={15} strokeWidth={2.5} />
+            <div className="flex flex-col gap-3 px-5 py-4">
+              <AiDraftGenerator 
+                recipientName="Elena"
+                buttonLabel="Follow Up"
+                message={`Hi Elena,\n\nMet at the Neo-Con summit. Interested in the Q3 design roadmap and potential collab with your London office. Let's connect on Monday!`}
+              />
+              <button className="flex w-full items-center justify-center gap-2 py-[16px] rounded-[12px] bg-[#353535] font-['Manrope:Bold',sans-serif] font-bold text-[#e5e2e1] text-[16px] transition-all hover:bg-[#454545] active:scale-[0.98]">
+                <Star size={18} strokeWidth={2.5} />
                 Priority
               </button>
             </div>
@@ -95,10 +129,19 @@ export default function ContactCapture() {
                 <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="Container" data-node-id="7:149">
                   <div className="absolute flex inset-[-16px] items-center justify-center" style={{ containerType: "size" }}>
                     <div className="flex-none h-[100cqh] w-[100cqw]">
-                      <div className="bg-[rgba(233,193,118,0.2)] rounded-[9999px] size-full" data-name="Pulsing visual for recording effect" data-node-id="7:150" />
+                      <div className={`rounded-[9999px] size-full ${recordState === 'recording' ? 'bg-[rgba(233,193,118,0.4)] animate-pulse' : 'bg-[rgba(233,193,118,0.2)]'}`} data-name="Pulsing visual for recording effect" data-node-id="7:150" />
                     </div>
                   </div>
-                  <div className="bg-[#e9c176] content-stretch flex items-center justify-center relative rounded-[9999px] shrink-0 size-[64px]" data-name="Button" data-node-id="7:151">
+                  <div 
+                    className="bg-[#e9c176] content-stretch flex items-center justify-center relative rounded-[9999px] shrink-0 size-[64px] transition-transform active:scale-95 cursor-pointer cursor-crosshair select-none" 
+                    data-name="Button" 
+                    data-node-id="7:151"
+                    onMouseDown={startRecording}
+                    onMouseUp={stopRecording}
+                    onMouseLeave={stopRecording}
+                    onTouchStart={startRecording}
+                    onTouchEnd={stopRecording}
+                  >
                     <div className="absolute bg-[rgba(255,255,255,0)] left-0 rounded-[9999px] shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)] size-[64px] top-0" data-name="Button:shadow" data-node-id="7:152" />
                     <div className="h-[23.75px] relative shrink-0 w-[23.75px] text-[#412d00]" data-name="Container" data-node-id="7:153">
                       <Mic className="absolute block inset-0 max-w-none size-full" strokeWidth={2.5} />
@@ -106,31 +149,34 @@ export default function ContactCapture() {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col font-['Manrope:Bold',sans-serif] font-bold justify-center leading-[0] relative shrink-0 text-[#e9c176] text-[10px] text-center tracking-[1px] uppercase whitespace-nowrap z-[1]" data-node-id="7:155">
-                <p className="leading-[15px]">HOLD TO RECORD VOICE MEMO</p>
+              <div className="flex flex-col font-['Manrope:Bold',sans-serif] font-bold justify-center leading-[0] relative shrink-0 text-[#e9c176] text-[10px] text-center tracking-[1px] uppercase whitespace-nowrap z-[1] select-none" data-node-id="7:155">
+                <p className="leading-[15px]">{recordState === 'recording' ? "RECORDING... (RELEASE TO STOP)" : "HOLD TO RECORD VOICE MEMO"}</p>
               </div>
             </div>
             <div className="bg-[rgba(14,14,14,0.5)] border-[rgba(186,200,220,0.3)] border-l-2 border-solid content-stretch flex flex-col gap-[12px] items-start pb-[16px] pl-[18px] pr-[16px] pt-[15.125px] relative rounded-[12px] shrink-0 w-full" data-name="Transcription Preview" data-node-id="7:156">
-              <div className="opacity-80 relative shrink-0 w-full" data-name="Container" data-node-id="7:157">
+              <div className="opacity-80 relative shrink-0 w-full min-h-[91px]" data-name="Container" data-node-id="7:157">
                 <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start pb-[0.875px] relative size-full">
-                  <div className="flex flex-col font-['Manrope:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#e5e2e1] text-[14px] w-full" data-node-id="7:158">
-                    <p className="leading-[22.75px] mb-0">{`"Met at the Neo-Con summit. Interested`}</p>
-                    <p className="leading-[22.75px] mb-0">in the Q3 design roadmap and</p>
-                    <p className="leading-[22.75px] mb-0">mentioned a potential collab with their</p>
-                    <p className="leading-[22.75px]">{`London office. Follow up on Monday..."`}</p>
+                  <div className="flex flex-col font-['Manrope:Regular',sans-serif] font-normal justify-start leading-[0] relative shrink-0 text-[#e5e2e1] text-[14px] w-full" data-node-id="7:158">
+                    {recordState === 'idle' ? (
+                      <p className="leading-[22.75px] text-[#8b99ac] italic mb-0">Hold the microphone to record context...</p>
+                    ) : (
+                      <p className="leading-[22.75px] mb-0 whitespace-pre-wrap">{transcribedText}{recordState === 'recording' && <span className="inline-block w-[2px] h-[14px] bg-[#e9c176] ml-1 align-middle animate-pulse" />}</p>
+                    )}
                   </div>
                 </div>
               </div>
-              <div className="relative shrink-0 w-full" data-name="Container" data-node-id="7:159">
-                <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex gap-[8px] items-center relative size-full">
-                  <div className="bg-[#bac8dc] rounded-[9999px] shrink-0 size-[6px]" data-name="Background" data-node-id="7:160" />
-                  <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="Container" data-node-id="7:161">
-                    <div className="flex flex-col font-['Inter:Regular',sans-serif] font-normal justify-center leading-[0] not-italic relative shrink-0 text-[#8b99ac] text-[10px] uppercase whitespace-nowrap" data-node-id="7:162">
-                      <p className="leading-[15px]">TRANSCRIBING AUDIO...</p>
+              {recordState !== 'idle' && (
+                <div className="relative shrink-0 w-full" data-name="Container" data-node-id="7:159">
+                  <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex gap-[8px] items-center relative size-full">
+                    <div className={`rounded-[9999px] shrink-0 size-[6px] ${recordState === 'recording' ? 'bg-[#e9c176] animate-pulse' : 'bg-[#bac8dc]'}`} data-name="Background" data-node-id="7:160" />
+                    <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="Container" data-node-id="7:161">
+                      <div className="flex flex-col font-['Inter:Regular',sans-serif] font-normal justify-center leading-[0] not-italic relative shrink-0 text-[#8b99ac] text-[10px] uppercase whitespace-nowrap" data-node-id="7:162">
+                        <p className="leading-[15px]">{recordState === 'recording' ? 'TRANSCRIBING AUDIO...' : 'TRANSCRIPTION SAVED'}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
           <div className="gap-x-[16px] gap-y-[16px] grid grid-cols-[repeat(2,minmax(0,1fr))] grid-rows-[_79px] relative shrink-0 w-full" data-name="Tags & Location" data-node-id="7:163">
