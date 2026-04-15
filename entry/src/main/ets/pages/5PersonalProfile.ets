@@ -46,7 +46,7 @@ struct PersonalProfile {
       }
       .margin({ top: 8, bottom: 16 })
       .onClick(() => {
-        router.pushUrl({ url: 'pages/PersonalQR' })
+        router.pushUrl({ url: 'pages/6PersonalQR' })
       })
 
       // 姓名
