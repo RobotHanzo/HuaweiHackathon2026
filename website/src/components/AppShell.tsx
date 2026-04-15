@@ -1,4 +1,4 @@
-import { type ReactNode, useRef, useState } from "react";
+import { type ReactNode, useRef, useState, useEffect } from "react";
 import { Settings, Home, Camera, Clock, Briefcase, Radar } from "lucide-react";
 
 // ── Types ────────────────────────────────────────────────────────────────────
@@ -104,6 +104,7 @@ export default function AppShell({
   // Track the slide direction based on tab index comparison
   const prevTabRef = useRef<AppTab>(activeTab);
   const [direction, setDirection] = useState<"right" | "left">("right");
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   function handleTabChange(tab: AppTab) {
     if (tab === prevTabRef.current) return; // no-op on same tab
@@ -114,12 +115,18 @@ export default function AppShell({
     onTabChange(tab);
   }
 
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo(0, 0);
+    }
+  }, [activeTab]);
+
   return (
     <div className="flex flex-col w-full h-full overflow-hidden">
       <AppHeader />
 
       {/* Scrollable content area — key forces remount → CSS animation fires */}
-      <div className="flex-1 overflow-y-auto overflow-x-hidden">
+      <div className="flex-1 overflow-y-auto overflow-x-hidden" ref={scrollRef}>
         <div
           key={activeTab}
           className={direction === "right" ? "page-enter-right" : "page-enter-left"}
