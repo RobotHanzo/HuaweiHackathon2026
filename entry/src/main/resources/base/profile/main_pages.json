@@ -1,8 +1,10 @@
 {
   "src": [
-    "pages/Index",
-    "pages/SearchingUsers",
-    "pages/ConnectRequest",
-    "pages/UserProfile"
+    "pages/1wave",
+    "pages/3.ConnectRequest",
+    "pages/4star",
+    "pages/5PersonalProfile",
+    "pages/6PersonalQR",
+    "pages/2Searching"
   ]
 }

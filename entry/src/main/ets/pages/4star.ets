@@ -6,7 +6,7 @@
 @Entry
 @Component
 struct UserProfile {
-  @State userName: string = 'Julia Lin'
+  @State userName: string = 'Chou Yu Fan'
   @State userTitle: string = 'Software Developer'
   @State isStarred: boolean = false
 
@@ -39,34 +39,38 @@ struct UserProfile {
         .margin({ top: 2 })
 
       // --- Star 按鈕 ---
-      Button(this.isStarred ? '★ Starred' : 'Star')
-        .width('65%')
-        .height(34)
-        .fontSize(12)
-        .fontWeight(FontWeight.Medium)
-        .fontColor(this.isStarred ? '#FFD700' : '#1A1A1A')
-        .backgroundColor(this.isStarred ? '#333333' : '#E8E8E8')
-        .borderRadius(17)
-        .margin({ top: 10 })
-        .onClick(() => {
-          this.isStarred = !this.isStarred
-          console.info('Star toggled: ' + this.isStarred)
-        })
+      Button({ type: ButtonType.Normal, stateEffect: true }) {
+        Image(this.isStarred ? $r('app.media.Star2') : $r('app.media.Star1'))
+          .width(20)
+          .height(20)
+          .objectFit(ImageFit.Contain)
+      }
+      .width('65%')
+      .height(34)
+      .backgroundColor(this.isStarred ? '#333333' : '#E8E8E8')
+      .borderRadius(17)
+      .margin({ top: 10 })
+      .onClick(() => {
+        this.isStarred = !this.isStarred
+        console.info('Star toggled: ' + this.isStarred)
+      })
 
       // --- Voice memo 按鈕 ---
-      Button('Voice memo')
-        .width('65%')
-        .height(34)
-        .fontSize(12)
-        .fontWeight(FontWeight.Medium)
-        .fontColor('#1A1A1A')
-        .backgroundColor('#E8E8E8')
-        .borderRadius(17)
-        .margin({ top: 6 })
-        .onClick(() => {
-          // TODO: 開啟語音備忘錄
-          console.info('Voice memo clicked')
-        })
+      Button({ type: ButtonType.Normal, stateEffect: true }) {
+        Image($r('app.media.mic'))
+          .width(20)
+          .height(20)
+          .objectFit(ImageFit.Contain)
+      }
+      .width('65%')
+      .height(34)
+      .backgroundColor('#E8E8E8')
+      .borderRadius(17)
+      .margin({ top: 6 })
+      .onClick(() => {
+        // TODO: 開啟語音備忘錄
+        console.info('Voice memo clicked')
+      })
 
       // --- Disconnect 按鈕 ---
       Button('Disconnect')

@@ -3,10 +3,12 @@
 // 檔案: entry/src/main/ets/pages/ConnectRequest.ets
 // ============================================================
 
+import { router } from '@kit.ArkUI'
+
 @Entry
 @Component
 struct ConnectRequest {
-  @State userName: string = 'Julia'
+  @State userName: string = 'Yu Fan'
 
   build() {
     Column() {
@@ -30,7 +32,7 @@ struct ConnectRequest {
         .fontColor('#FFFFFF')
         .margin({ top: 8 })
 
-      Text(`Hi, I'm ${this.userName}.\nTap to connect.`)
+      Text(`Hi, I'm ${this.userName}. (Custom message) \nTap to connect.`)
         .fontSize(12)
         .fontColor('#CCCCCC')
         .textAlign(TextAlign.Center)
@@ -48,8 +50,7 @@ struct ConnectRequest {
         .borderRadius(18)
         .margin({ top: 12 })
         .onClick(() => {
-          // TODO: 處理連接邏輯
-          console.info('Connect clicked')
+          router.pushUrl({ url: 'pages/4star' })
         })
 
       // --- Cancel 按鈕 ---
