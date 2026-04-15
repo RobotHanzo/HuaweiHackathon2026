@@ -1,4 +1,5 @@
-﻿import { Radio, X, Brain, MessageCircle, MapPin, Users } from "lucide-react";
+import { Radio, X, Brain, MapPin, Users, ExternalLink } from "lucide-react";
+import { AiDraftGenerator } from "./components/AiDraftGenerator";
 const imgContactIdentity = "https://randomuser.me/api/portraits/women/44.jpg";
 const imgBackgroundBorder = "https://placehold.co/400x400/transparent/transparent.svg";
 
@@ -96,21 +97,20 @@ export default function NearbyAlert() {
               </div>
             </div>
             <div className="relative shrink-0 w-full" data-name="Actions" data-node-id="7:43">
-              <div className="bg-clip-padding border-0 border-[transparent] border-solid gap-x-[12px] gap-y-[12px] grid grid-cols-[repeat(1,minmax(0,1fr))] grid-rows-[__56px_56px] relative size-full">
-                <div className="col-1 content-stretch flex gap-[8px] h-[56px] items-center justify-center justify-self-stretch px-4 w-full relative rounded-[12px] row-1 shrink-0" data-name="Button" data-node-id="7:44" style={{ backgroundImage: "linear-gradient(134.832deg, rgb(186, 200, 220) 0%, rgb(35, 49, 65) 100%)" }}>
-                  <div className="absolute bg-[rgba(255,255,255,0)] h-[56px] left-0 right-[0.38px] rounded-[12px] shadow-[0px_10px_15px_-3px_rgba(186,200,220,0.1),0px_4px_6px_-4px_rgba(186,200,220,0.1)] top-0" data-name="Button:shadow" data-node-id="7:45" />
-                  <div className="flex flex-col font-['Manrope:Bold',sans-serif] font-bold justify-center leading-[0] relative shrink-0 text-[#243141] text-[16px] text-center whitespace-nowrap" data-node-id="7:46">
-                    <p className="leading-[24px]">Say Hello</p>
-                  </div>
-                  <div className="relative shrink-0 size-[18.375px] text-[#243141]" data-name="Container" data-node-id="7:47">
-                    <MessageCircle className="absolute block inset-0 max-w-none size-full" strokeWidth={2.5} />
-                  </div>
+              <div className="bg-clip-padding border-0 border-[transparent] border-solid gap-x-[12px] gap-y-[12px] grid grid-cols-[repeat(1,minmax(0,1fr))] grid-rows-[auto_56px] relative size-full">
+                <div className="col-1 row-1">
+                  <AiDraftGenerator 
+                    recipientName="Julianne" 
+                    buttonLabel="Say Hello"
+                    message={`Hi Julianne,\n\nGreat bumping into you at the Tech Forum! Let's connect.`} 
+                  />
                 </div>
-                <div className="bg-[#353535] col-1 content-stretch flex flex-col h-[56px] items-center justify-center justify-self-stretch px-4 w-full relative rounded-[12px] row-2 shrink-0" data-name="Button" data-node-id="7:49">
+                <button className="bg-[#353535] col-1 content-stretch flex flex-row gap-[8px] h-[56px] items-center justify-center justify-self-stretch px-4 w-full relative rounded-[12px] row-2 shrink-0 transition-opacity hover:opacity-80 active:scale-[0.98]" data-name="Button" data-node-id="7:49">
                   <div className="flex flex-col font-['Manrope:Bold',sans-serif] font-bold justify-center leading-[0] relative shrink-0 text-[#e5e2e1] text-[16px] text-center whitespace-nowrap" data-node-id="7:50">
                     <p className="leading-[24px]">View Profile</p>
                   </div>
-                </div>
+                  <ExternalLink size={16} strokeWidth={2.5} className="text-[#e5e2e1]" />
+                </button>
               </div>
             </div>
           </div>

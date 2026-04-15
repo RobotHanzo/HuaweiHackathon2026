@@ -9,7 +9,7 @@ import WelcomeLounge from './WelcomeLounge';
 
 function App() {
   const [showLounge, setShowLounge] = useState(true);
-  const [activeTab, setActiveTab] = useState<AppTab>('nearby');
+  const [activeTab, setActiveTab] = useState<AppTab>('home');
 
   if (showLounge) {
     return (
@@ -33,7 +33,7 @@ function App() {
           {activeTab === 'capture'  && <ContactCapture />}
           {activeTab === 'timeline' && <NetworkingTimeline />}
           {activeTab === 'crm'      && <RelationshipCrm />}
-          {activeTab === 'network'  && <NearbyAlert />}
+          {activeTab === 'home'     && <NearbyAlert />}
         </AppShell>
       </div>
     </div>

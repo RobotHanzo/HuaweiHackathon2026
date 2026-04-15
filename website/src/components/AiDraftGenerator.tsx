@@ -4,11 +4,12 @@ import { Wand2, Send, Sparkles, CheckCircle } from "lucide-react";
 export interface AiDraftGeneratorProps {
   recipientName: string;
   message: string;
+  buttonLabel?: string;
 }
 
 type DraftState = 'idle' | 'generating' | 'done' | 'sent';
 
-export function AiDraftGenerator({ recipientName, message }: AiDraftGeneratorProps) {
+export function AiDraftGenerator({ recipientName, message, buttonLabel }: AiDraftGeneratorProps) {
   const [draftState, setDraftState] = useState<DraftState>('idle');
   const [draftText, setDraftText] = useState('');
   const draftPanelRef = useRef<HTMLDivElement>(null);
@@ -60,7 +61,7 @@ export function AiDraftGenerator({ recipientName, message }: AiDraftGeneratorPro
           </div>
           <div className="flex flex-col font-['Manrope:Bold',sans-serif] font-bold justify-center leading-[0] relative shrink-0 text-[#243141] text-[16px] text-center whitespace-nowrap">
             <p className="leading-[24px]">
-              {draftState === 'generating' ? 'Composing…' : draftState === 'done' ? 'Draft Ready ↓' : 'AI Outreach Draft'}
+              {draftState === 'generating' ? 'Composing…' : draftState === 'done' ? 'Draft Ready ↓' : (buttonLabel || 'AI Outreach Draft')}
             </p>
           </div>
         </button>

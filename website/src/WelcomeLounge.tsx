@@ -1,4 +1,4 @@
-import { ChevronRight, Globe, Coffee, BarChart2, User } from "lucide-react";
+import { ChevronRight, Globe } from "lucide-react";
 
 const imgLogo = "/logo.png";
 
@@ -76,34 +76,6 @@ export default function WelcomeLounge({ onEnter }: WelcomeLoungeProps) {
         </button>
       </div>
 
-      {/* ── Bottom Nav ── */}
-      <div
-        className="sticky bottom-0 z-50 backdrop-blur-[20px] bg-[rgba(19,19,19,0.8)] h-[80px] rounded-tl-2xl rounded-tr-2xl shadow-[0px_-8px_24px_0px_rgba(0,0,0,0.06)] w-full"
-        data-node-id="7:545"
-      >
-        <div className="flex h-full items-center justify-around px-4">
-          {/* Active: Lounge */}
-          <div className="bg-[#20201f] flex flex-col items-center justify-center gap-1 px-4 py-2 rounded-xl">
-            <Coffee size={18} className="text-[#e9c176]" strokeWidth={2} />
-            <p className="font-['Inter:Medium',sans-serif] font-medium text-[#e9c176] text-[10px] tracking-[1px] uppercase">Lounge</p>
-          </div>
-          {/* Inactive: Network */}
-          <div className="opacity-60 flex flex-col items-center gap-1 px-4 py-2">
-            <Globe size={18} className="text-[#c6c5d4]" strokeWidth={2} />
-            <p className="font-['Inter:Medium',sans-serif] font-medium text-[#c6c5d4] text-[10px] tracking-[1px] uppercase">Network</p>
-          </div>
-          {/* Inactive: Insights */}
-          <div className="opacity-60 flex flex-col items-center gap-1 px-4 py-2">
-            <BarChart2 size={18} className="text-[#c6c5d4]" strokeWidth={2} />
-            <p className="font-['Inter:Medium',sans-serif] font-medium text-[#c6c5d4] text-[10px] tracking-[1px] uppercase">Insights</p>
-          </div>
-          {/* Inactive: Profile */}
-          <div className="opacity-60 flex flex-col items-center gap-1 px-4 py-2">
-            <User size={18} className="text-[#c6c5d4]" strokeWidth={2} />
-            <p className="font-['Inter:Medium',sans-serif] font-medium text-[#c6c5d4] text-[10px] tracking-[1px] uppercase">Profile</p>
-          </div>
-        </div>
-      </div>
 
     </div>
   );

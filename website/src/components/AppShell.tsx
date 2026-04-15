@@ -1,10 +1,10 @@
 import { type ReactNode, useRef, useState } from "react";
-import { Settings, Globe, Camera, Clock, Briefcase, Radar } from "lucide-react";
+import { Settings, Home, Camera, Clock, Briefcase, Radar } from "lucide-react";
 
 // ── Types ────────────────────────────────────────────────────────────────────
-export type AppTab = "network" | "capture" | "timeline" | "crm" | "nearby";
+export type AppTab = "home" | "capture" | "timeline" | "crm" | "nearby";
 
-const TAB_ORDER: AppTab[] = ["network", "capture", "timeline", "crm", "nearby"];
+const TAB_ORDER: AppTab[] = ["home", "capture", "timeline", "crm", "nearby"];
 
 interface AppShellProps {
   activeTab: AppTab;
@@ -39,7 +39,7 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { id: "network",  label: "NETWORK",  icon: <Globe     size={18} strokeWidth={2} /> },
+  { id: "home",     label: "HOME",     icon: <Home      size={18} strokeWidth={2} /> },
   { id: "capture",  label: "CAPTURE",  icon: <Camera    size={18} strokeWidth={2} /> },
   { id: "timeline", label: "TIMELINE", icon: <Clock     size={18} strokeWidth={2} /> },
   { id: "crm",      label: "CRM",      icon: <Briefcase size={18} strokeWidth={2} /> },
