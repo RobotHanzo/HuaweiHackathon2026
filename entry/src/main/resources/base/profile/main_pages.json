@@ -1,17 +1,10 @@
 {
   "src": [
-<<<<<<< HEAD
     "pages/1wave",
     "pages/3.ConnectRequest",
     "pages/4star",
     "pages/5PersonalProfile",
     "pages/6PersonalQR",
     "pages/2Searching"
-=======
-    "pages/Index",
-    "pages/SearchingUsers",
-    "pages/ConnectRequest",
-    "pages/UserProfile"
->>>>>>> c1f450ba503fe17a8d4f9a1a9a931110aa5ebe08
   ]
 }
