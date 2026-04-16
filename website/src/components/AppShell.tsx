@@ -9,11 +9,12 @@ const TAB_ORDER: AppTab[] = ["home", "capture", "timeline", "crm", "nearby"];
 interface AppShellProps {
   activeTab: AppTab;
   onTabChange: (tab: AppTab) => void;
+  onOpenSettings?: () => void;
   children: ReactNode;
 }
 
 // ── Shared Header ────────────────────────────────────────────────────────────
-export function AppHeader() {
+export function AppHeader({ onOpenSettings }: { onOpenSettings?: () => void }) {
   return (
     <div className="sticky top-0 z-50 backdrop-blur-[12px] bg-[rgba(19,19,19,0.7)] flex h-[64px] items-center justify-between px-6 w-full shrink-0">
       {/* Logo group */}
@@ -26,7 +27,9 @@ export function AppHeader() {
         </p>
       </div>
       {/* Settings */}
-      <Settings size={20} className="text-[#bac8dc] shrink-0" strokeWidth={2} />
+      <button onClick={onOpenSettings} className="outline-none">
+        <Settings size={20} className="text-[#bac8dc] shrink-0 hover:text-white transition-colors" strokeWidth={2} />
+      </button>
     </div>
   );
 }
@@ -99,6 +102,7 @@ export function BottomNav({
 export default function AppShell({
   activeTab,
   onTabChange,
+  onOpenSettings,
   children,
 }: AppShellProps) {
   // Track the slide direction based on tab index comparison
@@ -123,7 +127,7 @@ export default function AppShell({
 
   return (
     <div className="flex flex-col w-full h-full overflow-hidden">
-      <AppHeader />
+      <AppHeader onOpenSettings={onOpenSettings} />
 
       {/* Scrollable content area — key forces remount → CSS animation fires */}
       <div className="flex-1 overflow-y-auto overflow-x-hidden" ref={scrollRef}>

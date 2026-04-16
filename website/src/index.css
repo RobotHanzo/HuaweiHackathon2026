@@ -44,6 +44,11 @@ div[data-name^="Floating Action Button"] {
   to   { opacity: 1; transform: translateY(0)     scale(1);    }
 }
 
+@keyframes page-fade-out {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(10px) scale(0.99); }
+}
+
 .page-enter-right {
   animation: page-slide-in-right 0.26s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
@@ -54,6 +59,10 @@ div[data-name^="Floating Action Button"] {
 
 .page-fade-in {
   animation: page-fade-in 0.32s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.page-fade-out {
+  animation: page-fade-out 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 /* ── Nav tab micro-animations ────────────────────────────────────────────────── */
