@@ -51,7 +51,7 @@ export function BottomNav({
   onTabChange,
 }: Pick<AppShellProps, "activeTab" | "onTabChange">) {
   return (
-    <div className="sticky bottom-0 z-50 backdrop-blur-[20px] bg-[rgba(19,19,19,0.8)] flex h-[80px] items-center justify-around px-4 rounded-tl-2xl rounded-tr-2xl shadow-[0px_-8px_24px_0px_rgba(0,0,0,0.06)] w-full shrink-0">
+    <div className="sticky bottom-0 z-50 backdrop-blur-[20px] bg-[rgba(19,19,19,0.8)] flex h-[calc(80px+env(safe-area-inset-bottom))] pb-[env(safe-area-inset-bottom)] items-center justify-around px-4 rounded-tl-2xl rounded-tr-2xl shadow-[0px_-8px_24px_0px_rgba(0,0,0,0.06)] w-full shrink-0">
       {NAV_ITEMS.map(({ id, label, icon }) => {
         const active = activeTab === id;
         return (
